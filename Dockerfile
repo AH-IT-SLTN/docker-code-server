@@ -22,6 +22,22 @@ RUN \
  echo 'deb https://dl.yarnpkg.com/debian/ stable main' \
 	> /etc/apt/sources.list.d/yarn.list && \
  echo "**** install build dependencies ****" && \
+ # Update the list of packages
+apt-get update && \
+# Install pre-requisite packages.
+apt-get install -y wget apt-transport-https software-properties-common && \
+# Download the Microsoft repository GPG keys
+curl -s https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb --output packages-microsoft-prod.deb && \
+# Register the Microsoft repository GPG keys
+dpkg -i packages-microsoft-prod.deb && \
+# Update the list of products
+apt-get update && \
+# Enable the "universe" repositories
+add-apt-repository universe && \
+# Install PowerShell
+apt-get install -y powershell && \
+apt-get install -y dotnet-sdk-3.1 && \
+apt-get install -y azure-cli && \
  apt-get update && \
  apt-get install -y \
 	build-essential \
